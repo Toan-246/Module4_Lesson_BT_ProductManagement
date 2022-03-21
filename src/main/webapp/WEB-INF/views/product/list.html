@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="layout :: head">
+</head>
+<body>
+<h3>Danh sách sản phẩm</h3>
+<a th:href="@{/products/create}">Tạo sản phẩm mới</a>
+<form action="/products/search">
+    <input type="text" placeholder="Search" name="q">
+    <button>Search</button>
+</form>
+<table id="products">
+    <tr>
+        <th>Mã sản phẩm</th>
+        <th>Tên sản phẩm</th>
+        <th>Giá sản phẩm</th>
+        <th>Mô tả sản phẩm</th>
+        <th>Nhà sản xuất</th>
+        <th colspan="2">Action</th>
+    </tr>
+
+    <tr th:each="product : ${products}" >
+        <td th:text="${product.id}"></td>
+        <td>
+            <a th:href="@{/products/__${product.id}__}" th:text="${product.name}"></a>
+        </td>
+        <td th:text="${product.price}"></td>
+        <td th:text="${product.description}"></td>
+        <td th:text="${product.producer}"></td>
+        <td><a th:href="@{/products/edit/__${product.id}__}">Sửa</a></td>
+        <td><a th:href="@{/products/delete/__${product.id}__}">Xóa</a></td>
+    </tr>
+</table>
+<footer th:replace="layout :: footer"></footer>
+</body>
+</html>
